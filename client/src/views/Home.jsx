@@ -1,22 +1,20 @@
-import logo from "../logo.svg";
-import styles from "../App.module.css";
+import { For } from "solid-js";
+import { Link } from "solid-app-router";
+import fetchRoutes from "../api/routes";
+
 const Home = () => {
   return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+    <div>
+      <For each={fetchRoutes}>
+        {(item) => (
+          <Link
+            style={{ display: "flex", flexDirection: "column" }}
+            href={item.path}
+          >
+            {item.path}
+          </Link>
+        )}
+      </For>
     </div>
   );
 };

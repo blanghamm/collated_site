@@ -1,25 +1,11 @@
 import io from "socket.io-client";
-import { lazy, onMount } from "solid-js";
+import { createResource, lazy, onMount, For, createEffect } from "solid-js";
 import { useRoutes } from "solid-app-router";
+import fetchRoutes from "./api/routes";
 const socket = io("http://localhost:4000/");
 
-const routes = [
-  {
-    path: "/",
-    component: lazy(() => import("./views/Home")),
-  },
-  {
-    path: "/project",
-    component: lazy(() => import("./views/Project_1")),
-  },
-];
 function App() {
-  const Routes = useRoutes(routes);
-  onMount(() => {
-    socket.on("session", (data) => {
-      console.log(data);
-    });
-  });
+  const Routes = useRoutes(fetchRoutes);
   return (
     <div>
       <Routes />
