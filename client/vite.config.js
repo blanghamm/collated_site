@@ -6,5 +6,6 @@ export default defineConfig({
   build: {
     target: "esnext",
     polyfillDynamicImport: false,
+    chunkSizeWarningLimit: 1000,
   },
 });

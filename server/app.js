@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const MongoClient = require("mongodb").MongoClient;
 const server = require("http").createServer(app);
@@ -14,10 +15,13 @@ require("dotenv").config();
 const PORT = 4000;
 const randomId = () => crypto.randomBytes(8).toString("hex");
 const mongoURI = process.env.NODE_ENV_MONGODB;
+const outputRoute = require("./routes/outputRoutes");
 
-app.use(cors());
+app.use(cors(), express.json());
 
 let db, collection;
+
+mongoose.connect(mongoURI);
 
 //Mongodb connect store
 const store = new MongoDBStore({
@@ -48,17 +52,20 @@ io.use((socket, next) => {
 
 io.on("connection", async (socket) => {
   const session = socket.request.session;
-  console.log(`Socket ${session.id} connected`);
+  console.log(`Socket ${socket.id} connected`);
   session.connections++;
   session.save();
+  socket.emit("socket", socket.id);
   socket.emit("session", session.id);
   socket.on("disconnect", () => {
-    console.log(`Socket ${session.id} disconnected`);
+    console.log(`Socket ${socket.id} disconnected`);
   });
 });
 
 // Production
 app.use(express.static(path.join(__dirname, "..", "client/dist/")));
+
+//For solid application, serving each route.
 
 async function executeRoutes() {
   const routeOutline = await collection.find({}).toArray();
@@ -68,6 +75,12 @@ async function executeRoutes() {
     });
   });
 }
+
+async function saveUsersOutput(values) {
+  db.collection("userOutput").insertOne({ testItem: "somestuff" });
+}
+
+//For api setup
 
 app.get("/api/routes", async (req, res) => {
   await collection
@@ -80,6 +93,8 @@ app.get("/api/routes", async (req, res) => {
     });
 });
 
+app.use("/", outputRoute);
+
 server.listen(PORT, () => {
   console.log(`Server running at ${PORT}`);
   MongoClient.connect(mongoURI, (err, client) => {
@@ -89,5 +104,6 @@ server.listen(PORT, () => {
     db = client.db("testing");
     collection = db.collection("routes");
     executeRoutes();
+    saveUsersOutput();
   });
 });
