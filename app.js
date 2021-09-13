@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
-const PORT = process.env.PORT || 4000;
+const PORT = 4000 || process.env.PORT;
 const randomId = () => crypto.randomBytes(8).toString("hex");
 const mongoURI = process.env.NODE_ENV_MONGODB;
 const outputRoute = require("./routes/outputRoutes");
@@ -63,7 +63,7 @@ io.on("connection", async (socket) => {
 });
 
 // Production
-app.use(express.static(path.join(__dirname, "..", "client/dist/")));
+app.use(express.static(path.join(__dirname, "client/dist/")));
 
 //For solid application, serving each route.
 
@@ -71,7 +71,7 @@ async function executeRoutes() {
   const routeOutline = await collection.find({}).toArray();
   routeOutline.forEach((name) => {
     app.get("/" + name.path, (req, res) => {
-      res.sendFile(path.join(__dirname, "..", "client/dist/"));
+      res.sendFile(path.join(__dirname, "client/dist/"));
     });
   });
 }
