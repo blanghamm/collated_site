@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
-const PORT = 4000 || process.env.PORT;
+const PORT = process.env.PORT || 4000;
 const randomId = () => crypto.randomBytes(8).toString("hex");
 const mongoURI = process.env.NODE_ENV_MONGODB;
 const outputRoute = require("./routes/outputRoutes");
