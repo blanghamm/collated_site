@@ -8,4 +8,7 @@ export default defineConfig({
     polyfillDynamicImport: false,
     chunkSizeWarningLimit: 1000,
   },
+  server: {
+    host: true,
+  },
 });

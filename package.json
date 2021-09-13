@@ -1,0 +1,20 @@
+{
+  "name": "collated_site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "(cd client && npm run build) && (cd server && npm run start)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blanghamm/collated_site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blanghamm/collated_site/issues"
+  },
+  "homepage": "https://github.com/blanghamm/collated_site#readme"
+}

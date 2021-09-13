@@ -1,7 +1,11 @@
-import { createEffect, createSignal } from "solid-js";
+import { createEffect, createResource, createSignal, onMount } from "solid-js";
 import { useData } from "solid-app-router";
 import useFetch from "../../hooks/useFetch";
 import Sketch from "../../p5_wrapper/index";
+import { useId } from "../../store/app-store";
+
+const fetchOutputs = async () =>
+  (await fetch("http://localhost:4000/api/outputs")).json();
 
 class SinCos {
   // function to change initial x co-ordinate of the line
@@ -30,39 +34,42 @@ class SinCos {
   }
 }
 
-const Project_1 = ({ idToGenerate, idThatsGenerated }) => {
+const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal({});
+  const [user] = useId();
+  const [output, { refetch }] = createResource(fetchOutputs);
 
-  const user = useData(0);
-  console.log("Correct route id: ", user);
-
-  setInfo({
-    userId: "gfhfhj6847fj478dh",
-    value1: "59483782928",
-    value2: "954893783",
-    value3: "56049393",
+  createEffect(() => {
+    console.log(user.id());
+    console.log(info());
   });
 
-  const userDisconnects = () => {
-    useFetch(info());
-  };
-
-  let t = 0;
+  let t = 0.1;
   let sc = new SinCos();
 
-  //Values to be assigned after generateValues has exectued
+  const generateValuesAndSave = (idToGenerate) => {
+    //Do stuff to assign values, extract numbers if it has them.
+    const extractNumbers = /([0-9]|[1-9][0-9])+/gm;
+    const numbers = extractNumbers && idToGenerate.match(extractNumbers);
 
-  let value1;
-  let value2;
-  let value3;
-  let value4;
-  let value5;
+    const value1 = idToGenerate.length * (numbers[0] || 3);
+    const value2 = Math.sin(value1 / 2) * numbers.length;
+    const value4 = numbers.length > 4 ? true : false;
 
-  const generateValues = (idToGenerate) => {
-    //Do stuff to assign values
+    setInfo({
+      userId: user.id(),
+      value1: value1,
+      value2: value2,
+      value3: "0",
+      value4: value4,
+    });
+
+    useFetch(info());
+    refetch();
   };
 
+  generateValuesAndSave(user.id());
   //Use values in project to change specific characteristics
 
   const setup = (p, canvasParentRef) => {
@@ -81,11 +88,21 @@ const Project_1 = ({ idToGenerate, idThatsGenerated }) => {
     p.stroke(t, 80, 100);
     p.strokeWeight(1.5);
     p.noFill();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < info().value1; i++) {
       let noiseVal = p.noise(sc.x1(t - i) / 1000);
-      p.line(sc.x1(t - i), sc.x1(t - i), sc.x2(t * noiseVal), sc.y2(t - i));
+      let valueCond = info().value4 ? noiseVal : info().value1 / 500;
+      p.line(
+        sc.x1(info().value4 ? t * info().value2 * valueCond : t * i),
+        sc.x1(t - info().value1),
+        sc.x2(info().value4 ? t * info().value2 * valueCond : t * i),
+        sc.y2(t - info().value1 * i)
+      );
     }
-    t += 0.15;
+    //Causes it to glitch position currently, may have to find a better solution
+    if (t > 50) {
+      t = -t;
+    }
+    t = t + 0.05;
   };
 
   return (
@@ -95,8 +112,50 @@ const Project_1 = ({ idToGenerate, idThatsGenerated }) => {
         draw={draw}
         style={{ width: "100%", height: "100%" }}
       />
-
-      <button onClick={() => userDisconnects()}>Send Outputs</button>
+      <div
+        class="ui-overlay"
+        style={{
+          position: "absolute",
+          zIndex: "10",
+          color: "white",
+          margin: "50px",
+          height: "100vh",
+          width: "15vw",
+        }}
+      >
+        <strong>Entries:</strong>
+        <For each={output()}>
+          {(item) => (
+            <a
+              style={{
+                color: "white",
+                cursor: "pointer",
+                display: "flex",
+                padding: "2px",
+                fontSize: "8px",
+              }}
+              onClick={() => setInfo(item)}
+            >
+              {item.userId}
+            </a>
+          )}
+        </For>
+        <p>
+          <strong>selected: </strong>
+          {info().userId}
+        </p>
+        <div style={{ position: "absolute", top: "500px" }}>
+          <p>
+            <strong>Project:</strong> Lines
+          </p>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit.
+            Fugiat porro culpa doloremque omnis<br></br> iusto nisi voluptatibus
+            est voluptatem illo a! Rem, odio repellat?<br></br> Eius sed, itaque
+            quae magnam deleniti ad.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
