@@ -3,7 +3,10 @@ import io from "socket.io-client";
 import fetchRoutes from "./api/routes";
 import { createEffect, createSignal } from "solid-js";
 import { AppProvider } from "./store/app-store";
-const socket = io("http://localhost:4000/");
+
+const urlDev = "http://localhost:4000/";
+const urlProd = "/";
+const socket = io(urlProd);
 
 function App() {
   //Pass userId through context
