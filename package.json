@@ -2,9 +2,9 @@
   "name": "collated_site",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "(cd client && npm run build) && (cd server && npm run start)"
+    "start": "cd server npm install && npm run start"
   },
   "repository": {
     "type": "git",
