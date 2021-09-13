@@ -3,8 +3,10 @@ import { useData } from "solid-app-router";
 import useFetch from "../../hooks/useFetch";
 import Sketch from "../../p5_wrapper/index";
 import { useId } from "../../store/app-store";
+import Overlay from "../../components/Overlay";
 
-const fetchOutputs = async () => (await fetch("/api/outputs")).json();
+const fetchOutputs = async () =>
+  (await fetch("http://localhost:8080/api/outputs")).json();
 
 class SinCos {
   // function to change initial x co-ordinate of the line
@@ -64,8 +66,8 @@ const Project_1 = () => {
       value4: value4,
     });
 
-    useFetch(info());
-    refetch();
+    // useFetch(info());
+    // refetch();
   };
 
   generateValuesAndSave(user.id());
@@ -155,6 +157,7 @@ const Project_1 = () => {
           </p>
         </div>
       </div>
+      {/* <Overlay /> */}
     </div>
   );
 };

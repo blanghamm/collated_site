@@ -1,0 +1,1 @@
+import{t as o}from"./vendor.128a4c6f.js";const e=o("<div>Project_9</div>"),t=()=>e.cloneNode(!0);export{t as default};
