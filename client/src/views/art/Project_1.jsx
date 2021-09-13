@@ -4,8 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import Sketch from "../../p5_wrapper/index";
 import { useId } from "../../store/app-store";
 
-const fetchOutputs = async () =>
-  (await fetch("http://localhost:4000/api/outputs")).json();
+const fetchOutputs = async () => (await fetch("/api/outputs")).json();
 
 class SinCos {
   // function to change initial x co-ordinate of the line
