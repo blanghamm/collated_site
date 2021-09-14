@@ -1,4 +1,4 @@
-import { createResource, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 
 const urlProd = "/api/outputs";
 const urlDev = "http://localhost:8080/api/outputs";

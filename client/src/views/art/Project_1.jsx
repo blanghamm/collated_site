@@ -1,12 +1,15 @@
-import { createEffect, createResource, createSignal, onMount } from "solid-js";
-import { useData } from "solid-app-router";
-import useFetch from "../../hooks/useFetch";
+import { createEffect, createSignal, For, Show } from "solid-js";
+import useFetch from "../../api/hooks/useFetch";
+import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
 import { useId } from "../../store/app-store";
-import Overlay from "../../components/Overlay";
-
-const fetchOutputs = async () =>
-  (await fetch("http://localhost:8080/api/outputs")).json();
+import Overlay from "../../components/overlay";
+import {
+  Transition,
+  animateEnter,
+  animateExit,
+  animateMove,
+} from "@otonashixav/solid-flip";
 
 class SinCos {
   // function to change initial x co-ordinate of the line
@@ -38,12 +41,12 @@ class SinCos {
 const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal({});
+  const [show, setShow] = createSignal(true);
   const [user] = useId();
-  const [output, { refetch }] = createResource(fetchOutputs);
+  const { data, refetch } = useData();
 
   createEffect(() => {
-    console.log(user.id());
-    console.log(info());
+    refetch();
   });
 
   let t = 0.1;
@@ -53,8 +56,11 @@ const Project_1 = () => {
     //Do stuff to assign values, extract numbers if it has them.
     const extractNumbers = /([0-9]|[1-9][0-9])+/gm;
     const numbers = extractNumbers && idToGenerate.match(extractNumbers);
-
-    const value1 = idToGenerate.length * (numbers[0] || 3);
+    const check = numbers.map((ele) => {
+      return ele / idToGenerate.length + 2;
+    });
+    const value1 = check[0];
+    console.log(value1);
     const value2 = Math.sin(value1 / 2) * numbers.length;
     const value4 = numbers.length > 4 ? true : false;
 
@@ -65,22 +71,17 @@ const Project_1 = () => {
       value3: "0",
       value4: value4,
     });
-
     // useFetch(info());
-    // refetch();
   };
 
   generateValuesAndSave(user.id());
-  //Use values in project to change specific characteristics
 
-  const setup = (p, canvasParentRef) => {
+  const setup = (p) => {
     p.windowResized = () => {
       p.resizeCanvas(p.windowWidth, p.windowHeight);
     };
     p.frameRate(60);
-    p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL).parent(
-      canvasParentRef
-    );
+    p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL).parent("solid-p5");
     p.colorMode(p.HSB, 360, 100, 100);
   };
 
@@ -89,7 +90,7 @@ const Project_1 = () => {
     p.stroke(t, 80, 100);
     p.strokeWeight(1.5);
     p.noFill();
-    for (let i = 0; i < info().value1; i++) {
+    for (let i = 0; i < info().value1 + 8; i++) {
       let noiseVal = p.noise(sc.x1(t - i) / 1000);
       let valueCond = info().value4 ? noiseVal : info().value1 / 500;
       p.line(
@@ -107,57 +108,80 @@ const Project_1 = () => {
   };
 
   return (
-    <div>
+    <div class="overlay-wrapper">
+      <a class="overlay-access" onclick={() => setShow(!show())}>
+        Show shit
+      </a>
       <Sketch
         setup={setup}
         draw={draw}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", position: "absolute" }}
       />
-      <div
-        class="ui-overlay"
-        style={{
-          position: "absolute",
-          zIndex: "10",
-          color: "white",
-          margin: "50px",
-          height: "100vh",
-          width: "15vw",
-        }}
+
+      <Transition
+        enter={animateEnter(
+          { opacity: [0, 1] },
+          { duration: 2000, easing: "ease", fill: "backwards" }
+        )}
+        exit={animateExit(
+          { opacity: [1, 0] },
+          { duration: 2000, easing: "ease" }
+        )}
+        move={animateMove({
+          duration: 2000,
+          easing: "ease",
+          fill: "backwards",
+        })}
       >
-        <strong>Entries:</strong>
-        <For each={output()}>
-          {(item) => (
-            <a
+        <Show when={show()}>
+          <Overlay>
+            <div
+              class="overlay-content"
               style={{
+                position: "absolute",
+                zIndex: "10",
                 color: "white",
-                cursor: "pointer",
-                display: "flex",
-                padding: "2px",
-                fontSize: "8px",
+                margin: "50px",
+                height: "100vh",
+                width: "15vw",
               }}
-              onClick={() => setInfo(item)}
             >
-              {item.userId}
-            </a>
-          )}
-        </For>
-        <p>
-          <strong>selected: </strong>
-          {info().userId}
-        </p>
-        <div style={{ position: "absolute", top: "500px" }}>
-          <p>
-            <strong>Project:</strong> Lines
-          </p>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing elit.
-            Fugiat porro culpa doloremque omnis<br></br> iusto nisi voluptatibus
-            est voluptatem illo a! Rem, odio repellat?<br></br> Eius sed, itaque
-            quae magnam deleniti ad.
-          </p>
-        </div>
-      </div>
-      {/* <Overlay /> */}
+              <strong>Entries:</strong>
+              <For each={data()}>
+                {(item) => (
+                  <a
+                    style={{
+                      color: "white",
+                      cursor: "pointer",
+                      display: "flex",
+                      padding: "2px",
+                      fontSize: "8px",
+                    }}
+                    onClick={() => setInfo(item)}
+                  >
+                    {item.userId}
+                  </a>
+                )}
+              </For>
+              <p>
+                <strong>selected: </strong>
+                {info().userId}
+              </p>
+              <div style={{ position: "absolute", top: "500px" }}>
+                <p>
+                  <strong>Project:</strong> Lines
+                </p>
+                <p>
+                  Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing
+                  elit. Fugiat porro culpa doloremque omnis<br></br> iusto nisi
+                  voluptatibus est voluptatem illo a! Rem, odio repellat?
+                  <br></br> Eius sed, itaque quae magnam deleniti ad.
+                </p>
+              </div>
+            </div>
+          </Overlay>
+        </Show>
+      </Transition>
     </div>
   );
 };

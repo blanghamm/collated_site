@@ -30,7 +30,7 @@ const Sketch = (props) => {
   onMount(() => {
     sketch = new p5((p) => {
       p.setup = () => {
-        props.setup(p, canvasParentRef.current);
+        props.setup(p, "solid-p5");
       };
       p5Events.forEach((event) => {
         if (props[event]) {
@@ -48,7 +48,8 @@ const Sketch = (props) => {
   return (
     <div
       ref={canvasParentRef}
-      className={props.className || "solid-p5"}
+      id="solid-p5"
+      class={props.class || "solid-p5"}
       style={props.style || {}}
     />
   );

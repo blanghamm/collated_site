@@ -1,7 +1,7 @@
 import { useRoutes } from "solid-app-router";
 import io from "socket.io-client";
 import fetchRoutes from "./api/routes";
-import { createEffect, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import { AppProvider } from "./store/app-store";
 
 const urlDev = "http://localhost:8080/";
