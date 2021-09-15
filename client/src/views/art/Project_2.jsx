@@ -23,37 +23,13 @@ const Project_2 = () => {
     generateValuesAndSave(user.id());
   });
 
-  const generateValuesAndSave = (idToGenerate) => {
-    const extractNumbers = /([0-9])+/gm;
-    const numbers = extractNumbers && idToGenerate.match(extractNumbers);
-    console.log("extracted values: ", numbers);
-    const check = numbers.map((ele, i) => {
-      return Math.min(Math.max(parseInt(ele), 1), 100);
-    });
-    const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
-    console.log("check output: ", average(check));
-    const value1 = average(check);
-    console.log("used value: ", value1);
-    const value2 = Math.sin(value1 / 2) * numbers.length;
-    const value4 = numbers.length > 4 ? true : false;
-
-    setInfo({
-      userId: user.id(),
-      value1: value1,
-      value2: value2,
-      value3: "0",
-      value4: value4,
-    });
-    useFetch(info());
-  };
-
   class SinCos {
     // function to change initial x co-ordinate of the line
     x1(t) {
       return (
-        Math.sin(t / info().value1) * 125 +
+        Math.sin(t / 200) * 125 +
         Math.sin(t / 20) * 125 +
-        Math.sin(t / 30) * info().value1
+        Math.sin(t / 30) * 125
       );
     }
     // function to change initial y co-ordinate of the line
@@ -61,23 +37,19 @@ const Project_2 = () => {
       return (
         Math.cos(t / 10) * -125 +
         Math.cos(t / 20) * 125 +
-        Math.cos(t / info().value2) * 125
+        Math.cos(t / 30) * 125
       );
     }
     // function to change final x co-ordinate of the line
     x2(t) {
       return (
-        Math.sin(t / 15) * info().value1 +
-        Math.sin(t / 25) * 125 +
-        Math.sin(t / 35) * info().value1
+        Math.sin(t / 15) * 125 + Math.sin(t / 25) * 125 + Math.sin(t / 35) * 125
       );
     }
     // function to change final y co-ordinate of the line
     y2(t) {
       return (
-        Math.cos(t / info().value2) * 125 +
-        Math.cos(t / 25) * 125 +
-        Math.cos(t / 35) * 125
+        Math.cos(t / 15) * 125 + Math.cos(t / 25) * 125 + Math.cos(t / 35) * 125
       );
     }
   }
@@ -85,57 +57,60 @@ const Project_2 = () => {
   let t = 0.1;
   let sc = new SinCos();
 
-  const chaikin = (arr, num) => {
-    if (num === 0) return arr;
-    const l = arr.length;
-    const smooth = arr
-      .map((c, i) => {
-        return [
-          [
-            0.75 * c[0] + 0.25 * arr[(i + 1) % l][0],
-            0.75 * c[1] + 0.25 * arr[(i + 1) % l][1],
-          ],
-          [
-            0.25 * c[0] + 0.75 * arr[(i + 1) % l][0],
-            0.25 * c[1] + 0.75 * arr[(i + 1) % l][1],
-          ],
-        ];
-      })
-      .flat();
-    return num === 1 ? smooth : chaikin(smooth, num - 1);
-  };
+  const generateValuesAndSave = (id) => {
+    //Do stuff to assign values, extract numbers if it has them.
+    // const extractNumbers = /([0-9])+/gm;
+    // const numbers = extractNumbers && idToGenerate.match(extractNumbers);
+    // console.log("extracted values: ", numbers);
+    // const check = numbers.map((ele, i) => {
+    //   return Math.min(Math.max(parseInt(ele), 1), 100);
+    // });
+    // const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
+    // console.log("check output: ", average(check));
+    // const value1 = average(check);
+    // console.log("used value: ", value1);
+    // const value2 = Math.sin(value1 / 2) * numbers.length;
+    // const value4 = numbers.length > 4 ? true : false;
 
-  const makeCircle = (numSteps, radius) => {
-    const points = [];
-    const radiansPerStep = (Math.PI * 2) / numSteps;
-
-    for (let theta = 0; theta < Math.PI * 2; theta += radiansPerStep) {
-      const x = 0.5 + radius * Math.cos(theta);
-      const y = 0.5 + radius * Math.sin(theta);
-      points.push([x, y]);
+    let a = parseInt(id, 16);
+    let SIZE = id.length;
+    let HALF_SIZE = id.length / 2;
+    let x = 0;
+    let y = 0;
+    let v = 0;
+    let value = 0;
+    let mod = (a % 11) + 5;
+    for (let i = 0; i < SIZE; i++) {
+      y = 2 * (i - HALF_SIZE) + 1;
+      if (a % 3 == 1) {
+        y = -y;
+      } else if (a % 3 == 2) {
+        y = Math.abs(y);
+      }
+      y = y * parseInt(a);
+      for (let j = 0; j < SIZE; j++) {
+        x = 2 * (j - HALF_SIZE) + 1;
+        if (a % 2 == 1) {
+          x = Math.abs(x);
+        }
+        x = y * parseInt(a);
+        v = ((x * y) / 1) % mod;
+        if (v < 5) {
+          value = ((x * y) % mod) + v;
+        }
+      }
     }
-    return points;
-  };
+    console.log(x, y, v, value, mod);
 
-  const distortPolygon = (polygon) => {
-    const z = p.frameCount / 100;
-    return polygon.map((point) => {
-      const x = point[0];
-      const y = point[1];
-      const distance = p.dist(0.5, 0.5, x, y);
-
-      const noiseFn = (x, y) => {
-        const noiseX = (x + 0.31) * distance * 2;
-        const noiseY = (y - 1.73) * distance * 2;
-        return p.noise(noiseX, noiseY, z);
-      };
-      const theta = noiseFn(x, y) * Math.PI * 3;
-
-      const amountToNudge = 0.08 - Math.cos(z) * 0.08;
-      const newX = x + amountToNudge * Math.cos(theta);
-      const newY = y + amountToNudge * Math.sin(theta);
-      return [newX, newY];
+    setInfo({
+      userId: user.id(),
+      value1: Math.abs(x),
+      value2: Math.abs(y),
+      value3: v,
+      value4: value,
+      value5: mod,
     });
+    // useFetch(info());
   };
 
   const setup = (p) => {
@@ -152,14 +127,13 @@ const Project_2 = () => {
     p.stroke(t, 80, 100);
     p.strokeWeight(1.5);
     p.noFill();
-    p.smooth();
-    for (let i = 0; i < info().value1 + 8; i++) {
+    for (let i = 0; i < info().value1 / info().value5; i++) {
       let noiseVal = p.noise(sc.x1(t - i) / 1000);
-      let valueCond = info().value4 ? noiseVal : info().value1 / 500;
-      let ellipseToSmooth = p.ellipse(
-        sc.x1(info().value4 ? t * info().value2 * valueCond : t * i),
+      let valueCond = info().value1 / 500;
+      p.ellipse(
+        sc.x1(t * i),
         sc.x1(t - info().value1),
-        sc.x2(info().value4 ? t * info().value2 * valueCond : t * i),
+        sc.x2(t / i),
         sc.y2(t - info().value1 * i)
       );
     }

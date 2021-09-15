@@ -11,33 +11,6 @@ import {
   animateMove,
 } from "@otonashixav/solid-flip";
 
-class SinCos {
-  // function to change initial x co-ordinate of the line
-  x1(t) {
-    return (
-      Math.sin(t / 200) * 125 + Math.sin(t / 20) * 125 + Math.sin(t / 30) * 125
-    );
-  }
-  // function to change initial y co-ordinate of the line
-  y1(t) {
-    return (
-      Math.cos(t / 10) * -125 + Math.cos(t / 20) * 125 + Math.cos(t / 30) * 125
-    );
-  }
-  // function to change final x co-ordinate of the line
-  x2(t) {
-    return (
-      Math.sin(t / 15) * 125 + Math.sin(t / 25) * 125 + Math.sin(t / 35) * 125
-    );
-  }
-  // function to change final y co-ordinate of the line
-  y2(t) {
-    return (
-      Math.cos(t / 15) * 125 + Math.cos(t / 25) * 125 + Math.cos(t / 35) * 125
-    );
-  }
-}
-
 const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal({});
@@ -50,32 +23,94 @@ const Project_1 = () => {
     generateValuesAndSave(user.id());
   });
 
+  class SinCos {
+    // function to change initial x co-ordinate of the line
+    x1(t) {
+      return (
+        Math.sin(t / 200) * 125 +
+        Math.sin(t / 20) * 125 +
+        Math.sin(t / 30) * 125
+      );
+    }
+    // function to change initial y co-ordinate of the line
+    y1(t) {
+      return (
+        Math.cos(t / 10) * -125 +
+        Math.cos(t / 20) * 125 +
+        Math.cos(t / 30) * 125
+      );
+    }
+    // function to change final x co-ordinate of the line
+    x2(t) {
+      return (
+        Math.sin(t / 15) * 125 + Math.sin(t / 25) * 125 + Math.sin(t / 35) * 125
+      );
+    }
+    // function to change final y co-ordinate of the line
+    y2(t) {
+      return (
+        Math.cos(t / 15) * 125 + Math.cos(t / 25) * 125 + Math.cos(t / 35) * 125
+      );
+    }
+  }
+
   let t = 0.1;
   let sc = new SinCos();
 
-  const generateValuesAndSave = (idToGenerate) => {
+  const generateValuesAndSave = (id) => {
     //Do stuff to assign values, extract numbers if it has them.
-    const extractNumbers = /([0-9])+/gm;
-    const numbers = extractNumbers && idToGenerate.match(extractNumbers);
-    console.log("extracted values: ", numbers);
-    const check = numbers.map((ele, i) => {
-      return Math.min(Math.max(parseInt(ele), 1), 100);
-    });
-    const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
-    console.log("check output: ", average(check));
-    const value1 = average(check);
-    console.log("used value: ", value1);
-    const value2 = Math.sin(value1 / 2) * numbers.length;
-    const value4 = numbers.length > 4 ? true : false;
+    // const extractNumbers = /([0-9])+/gm;
+    // const numbers = extractNumbers && idToGenerate.match(extractNumbers);
+    // console.log("extracted values: ", numbers);
+    // const check = numbers.map((ele, i) => {
+    //   return Math.min(Math.max(parseInt(ele), 1), 100);
+    // });
+    // const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
+    // console.log("check output: ", average(check));
+    // const value1 = average(check);
+    // console.log("used value: ", value1);
+    // const value2 = Math.sin(value1 / 2) * numbers.length;
+    // const value4 = numbers.length > 4 ? true : false;
+
+    let a = parseInt(id, 16);
+    let SIZE = id.length;
+    let HALF_SIZE = id.length / 2;
+    let x = 0;
+    let y = 0;
+    let v = 0;
+    let value = 0;
+    let mod = (a % 11) + 5;
+    for (let i = 0; i < SIZE; i++) {
+      y = 2 * (i - HALF_SIZE) + 1;
+      if (a % 3 == 1) {
+        y = -y;
+      } else if (a % 3 == 2) {
+        y = Math.abs(y);
+      }
+      y = y * parseInt(a);
+      for (let j = 0; j < SIZE; j++) {
+        x = 2 * (j - HALF_SIZE) + 1;
+        if (a % 2 == 1) {
+          x = Math.abs(x);
+        }
+        x = y * parseInt(a);
+        v = ((x * y) / 1) % mod;
+        if (v < 5) {
+          value = ((x * y) % mod) + v;
+        }
+      }
+    }
+    console.log(x, y, v, value, mod);
 
     setInfo({
       userId: user.id(),
-      value1: value1,
-      value2: value2,
-      value3: "0",
-      value4: value4,
+      value1: Math.abs(x),
+      value2: Math.abs(y),
+      value3: v,
+      value4: value,
+      value5: mod,
     });
-    useFetch(info());
+    // useFetch(info());
   };
 
   const setup = (p) => {
@@ -92,13 +127,13 @@ const Project_1 = () => {
     p.stroke(t, 80, 100);
     p.strokeWeight(1.5);
     p.noFill();
-    for (let i = 0; i < info().value1 + 8; i++) {
+    for (let i = 0; i < info().value1 / info().value5; i++) {
       let noiseVal = p.noise(sc.x1(t - i) / 1000);
-      let valueCond = info().value4 ? noiseVal : info().value1 / 500;
+      let valueCond = info().value1 / 500;
       p.line(
-        sc.x1(info().value4 ? t * info().value2 * valueCond : t * i),
+        sc.x1(t * i),
         sc.x1(t - info().value1),
-        sc.x2(info().value4 ? t * info().value2 * valueCond : t * i),
+        sc.x2(t / i),
         sc.y2(t - info().value1 * i)
       );
     }
