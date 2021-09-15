@@ -54,13 +54,16 @@ const Project_1 = () => {
 
   const generateValuesAndSave = (idToGenerate) => {
     //Do stuff to assign values, extract numbers if it has them.
-    const extractNumbers = /([0-9]|[1-9][0-9])+/gm;
+    const extractNumbers = /([0-9])+/gm;
     const numbers = extractNumbers && idToGenerate.match(extractNumbers);
-    const check = numbers.map((ele) => {
-      return ele / idToGenerate.length + 2;
+    console.log("extracted values: ", numbers);
+    const check = numbers.map((ele, i) => {
+      return Math.min(Math.max(parseInt(ele), 1), 100);
     });
-    const value1 = check[0];
-    console.log(value1);
+    const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
+    console.log("check output: ", average(check));
+    const value1 = average(check);
+    console.log("used value: ", value1);
     const value2 = Math.sin(value1 / 2) * numbers.length;
     const value4 = numbers.length > 4 ? true : false;
 
@@ -71,7 +74,7 @@ const Project_1 = () => {
       value3: "0",
       value4: value4,
     });
-    // useFetch(info());
+    useFetch(info());
   };
 
   generateValuesAndSave(user.id());

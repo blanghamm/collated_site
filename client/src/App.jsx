@@ -3,7 +3,6 @@ import io from "socket.io-client";
 import fetchRoutes from "./api/routes";
 import { createSignal } from "solid-js";
 import { AppProvider } from "./store/app-store";
-
 import { config } from "./api/config/constants";
 const url = config.url.API_URL_BASE;
 const socket = io(url);
