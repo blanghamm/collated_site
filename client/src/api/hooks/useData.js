@@ -1,7 +1,8 @@
 import { createResource } from "solid-js";
+import { config } from "../config/constants";
+const url = config.url.API_URL_OUTPUTS;
 
-const fetchOutputs = async () =>
-  (await fetch("http://localhost:8080/api/outputs")).json();
+const fetchOutputs = async () => (await fetch(url)).json();
 
 export default function useData() {
   const [data, { refetch }] = createResource(fetchOutputs);

@@ -1,7 +1,6 @@
 import { createSignal } from "solid-js";
-
-const urlProd = "/api/outputs";
-const urlDev = "http://localhost:8080/api/outputs";
+import { config } from "../config/constants";
+const url = config.url.API_URL_OUTPUTS;
 
 const sendOutput = async (url, data = {}) => {
   const res = await fetch(url, {
@@ -16,6 +15,6 @@ const sendOutput = async (url, data = {}) => {
 
 export default function useFetch(data) {
   const [output] = createSignal(data);
-  sendOutput(urlDev, output());
+  sendOutput(url, output());
   return output;
 }

@@ -41,7 +41,7 @@ class SinCos {
 const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal({});
-  const [show, setShow] = createSignal(true);
+  const [show, setShow] = createSignal(false);
   const [user] = useId();
   const { data, refetch } = useData();
 
@@ -108,80 +108,82 @@ const Project_1 = () => {
   };
 
   return (
-    <div class="overlay-wrapper">
-      <a class="overlay-access" onclick={() => setShow(!show())}>
-        Show shit
-      </a>
+    <div>
       <Sketch
         setup={setup}
         draw={draw}
         style={{ width: "100%", height: "100%", position: "absolute" }}
       />
 
-      <Transition
-        enter={animateEnter(
-          { opacity: [0, 1] },
-          { duration: 2000, easing: "ease", fill: "backwards" }
-        )}
-        exit={animateExit(
-          { opacity: [1, 0] },
-          { duration: 2000, easing: "ease" }
-        )}
-        move={animateMove({
-          duration: 2000,
-          easing: "ease",
-          fill: "backwards",
-        })}
-      >
-        <Show when={show()}>
-          <Overlay>
-            <div
-              class="overlay-content"
-              style={{
-                position: "absolute",
-                zIndex: "10",
-                color: "white",
-                margin: "50px",
-                height: "100vh",
-                width: "15vw",
-              }}
-            >
-              <strong>Entries:</strong>
-              <For each={data()}>
-                {(item) => (
-                  <a
-                    style={{
-                      color: "white",
-                      cursor: "pointer",
-                      display: "flex",
-                      padding: "2px",
-                      fontSize: "8px",
-                    }}
-                    onClick={() => setInfo(item)}
-                  >
-                    {item.userId}
-                  </a>
-                )}
-              </For>
-              <p>
-                <strong>selected: </strong>
-                {info().userId}
-              </p>
-              <div style={{ position: "absolute", top: "500px" }}>
+      <div class="overlay-wrapper">
+        <a class="overlay-access" onclick={() => setShow(!show())}>
+          Show shit
+        </a>
+        <Transition
+          enter={animateEnter(
+            { opacity: [0, 1] },
+            { duration: 2000, easing: "ease", fill: "backwards" }
+          )}
+          exit={animateExit(
+            { opacity: [1, 0] },
+            { duration: 2000, easing: "ease" }
+          )}
+          move={animateMove({
+            duration: 2000,
+            easing: "ease",
+            fill: "backwards",
+          })}
+        >
+          <Show when={show()}>
+            <Overlay>
+              <div
+                class="overlay-content"
+                style={{
+                  position: "absolute",
+                  zIndex: "10",
+                  color: "white",
+                  margin: "50px",
+                  height: "100vh",
+                  width: "15vw",
+                }}
+              >
+                <strong>Entries:</strong>
+                <For each={data()}>
+                  {(item) => (
+                    <a
+                      style={{
+                        color: "white",
+                        cursor: "pointer",
+                        display: "flex",
+                        padding: "2px",
+                        fontSize: "8px",
+                      }}
+                      onClick={() => setInfo(item)}
+                    >
+                      {item.userId}
+                    </a>
+                  )}
+                </For>
                 <p>
-                  <strong>Project:</strong> Lines
+                  <strong>selected: </strong>
+                  {info().userId}
                 </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing
-                  elit. Fugiat porro culpa doloremque omnis<br></br> iusto nisi
-                  voluptatibus est voluptatem illo a! Rem, odio repellat?
-                  <br></br> Eius sed, itaque quae magnam deleniti ad.
-                </p>
+                <div style={{ position: "absolute", top: "500px" }}>
+                  <p>
+                    <strong>Project:</strong> Lines
+                  </p>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing
+                    elit. Fugiat porro culpa doloremque omnis<br></br> iusto
+                    nisi voluptatibus est voluptatem illo a! Rem, odio repellat?
+                    <br></br> Eius sed, itaque quae magnam deleniti ad.
+                  </p>
+                </div>
               </div>
-            </div>
-          </Overlay>
-        </Show>
-      </Transition>
+            </Overlay>
+          </Show>
+        </Transition>
+      </div>
     </div>
   );
 };

@@ -4,9 +4,9 @@ import fetchRoutes from "./api/routes";
 import { createSignal } from "solid-js";
 import { AppProvider } from "./store/app-store";
 
-const urlDev = "http://localhost:8080/";
-const urlProd = "/";
-const socket = io(urlDev);
+import { config } from "./api/config/constants";
+const url = config.url.API_URL_BASE;
+const socket = io(url);
 
 function App() {
   //Pass userId through context
