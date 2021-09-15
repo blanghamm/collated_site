@@ -47,6 +47,7 @@ const Project_1 = () => {
 
   createEffect(() => {
     refetch();
+    generateValuesAndSave(user.id());
   });
 
   let t = 0.1;
@@ -76,8 +77,6 @@ const Project_1 = () => {
     });
     useFetch(info());
   };
-
-  generateValuesAndSave(user.id());
 
   const setup = (p) => {
     p.windowResized = () => {

@@ -20,6 +20,7 @@ const Project_2 = () => {
 
   createEffect(() => {
     refetch();
+    generateValuesAndSave(user.id());
   });
 
   const generateValuesAndSave = (idToGenerate) => {
@@ -45,8 +46,6 @@ const Project_2 = () => {
     });
     useFetch(info());
   };
-
-  generateValuesAndSave(user.id());
 
   class SinCos {
     // function to change initial x co-ordinate of the line
