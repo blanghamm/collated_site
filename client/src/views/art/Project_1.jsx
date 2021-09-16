@@ -13,23 +13,31 @@ import {
 
 const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
-  const [info, setInfo] = createSignal({});
+  const [info, setInfo] = createSignal();
   const [show, setShow] = createSignal(false);
   const [user] = useId();
   const { data, refetch } = useData();
 
-  createEffect(() => {
-    refetch();
-    generateValuesAndSave(user.id());
-  });
+  function stringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = "#";
+    for (let i = 0; i < 3; i++) {
+      let value = (hash >> (i * 8)) & 0xff;
+      color += ("00" + value.toString(16)).substr(-2);
+    }
+    return color;
+  }
 
   class SinCos {
     // function to change initial x co-ordinate of the line
     x1(t) {
       return (
-        Math.sin(t / 200) * 125 +
-        Math.sin(t / 20) * 125 +
-        Math.sin(t / 30) * 125
+        Math.cos(t / 10) * -125 +
+        Math.cos(t / 20) * 125 +
+        Math.cos(t / 30) * 125
       );
     }
     // function to change initial y co-ordinate of the line
@@ -58,20 +66,6 @@ const Project_1 = () => {
   let sc = new SinCos();
 
   const generateValuesAndSave = (id) => {
-    //Do stuff to assign values, extract numbers if it has them.
-    // const extractNumbers = /([0-9])+/gm;
-    // const numbers = extractNumbers && idToGenerate.match(extractNumbers);
-    // console.log("extracted values: ", numbers);
-    // const check = numbers.map((ele, i) => {
-    //   return Math.min(Math.max(parseInt(ele), 1), 100);
-    // });
-    // const average = (arr) => arr.reduce((a, b) => a + b) / check.length;
-    // console.log("check output: ", average(check));
-    // const value1 = average(check);
-    // console.log("used value: ", value1);
-    // const value2 = Math.sin(value1 / 2) * numbers.length;
-    // const value4 = numbers.length > 4 ? true : false;
-
     let a = parseInt(id, 16);
     let SIZE = id.length;
     let HALF_SIZE = id.length / 2;
@@ -100,7 +94,8 @@ const Project_1 = () => {
         }
       }
     }
-    console.log(x, y, v, value, mod);
+    const colorOutput = stringToColor(id);
+    console.log(x, y, v, value, mod, colorOutput);
 
     setInfo({
       userId: user.id(),
@@ -109,8 +104,33 @@ const Project_1 = () => {
       value3: v,
       value4: value,
       value5: mod,
+      color: colorOutput,
     });
-    // useFetch(info());
+  };
+
+  generateValuesAndSave(user.id());
+
+  createEffect(() => {
+    useFetch(info());
+    refetch();
+  });
+
+  let STEPS = 6;
+  let angle = 360 / STEPS;
+  let BOUNDS = 200;
+  let xspeed = 0.05;
+  let yspeed = 0.5;
+  let x1 = 30;
+  let x2 = 30;
+  let r = 25;
+
+  const getOutput = () => {
+    const rando = Math.random(1);
+    if (rando > 0.5) {
+      return STEPS + sc.y2(x1 * rando);
+    } else {
+      return STEPS * x1;
+    }
   };
 
   const setup = (p) => {
@@ -120,28 +140,42 @@ const Project_1 = () => {
     p.frameRate(60);
     p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL).parent("solid-p5");
     p.colorMode(p.HSB, 360, 100, 100);
+    p.angleMode(p.DEGREES);
   };
 
   const draw = (p) => {
     p.background(backgroundColor());
-    p.stroke(t, 80, 100);
+    p.stroke(info().color);
     p.strokeWeight(1.5);
     p.noFill();
     for (let i = 0; i < info().value1 / info().value5; i++) {
-      let noiseVal = p.noise(sc.x1(t - i) / 1000);
-      let valueCond = info().value1 / 500;
       p.line(
-        sc.x1(t * i),
-        sc.x1(t - info().value1),
-        sc.x2(t / i),
-        sc.y2(t - info().value1 * i)
+        sc.x1(info().value1 * STEPS),
+        STEPS + sc.y1(x1 * i),
+        sc.x2(info().value1 * STEPS),
+        getOutput()
       );
+      p.rotate(angle);
+    }
+    p.fill("pink");
+    for (let i = 0; i < info().value1 / info().value5; i++) {
+      p.line(
+        sc.x1(info().value1 * STEPS),
+        STEPS + sc.y1(x1 * i),
+        sc.x2(info().value1 * STEPS),
+        getOutput()
+      );
+      p.rotate(angle);
+    }
+    x1 += xspeed;
+    x2 += yspeed;
+    if (x1 > BOUNDS - r || x1 < r) {
+      xspeed = -xspeed;
+    }
+    if (x2 > BOUNDS - r || x2 < r) {
+      yspeed = -yspeed;
     }
     //Causes it to glitch position currently, may have to find a better solution
-    if (t > 50) {
-      t = -t;
-    }
-    t = t + 0.05;
   };
 
   return (

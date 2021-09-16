@@ -14,7 +14,5 @@ const sendOutput = async (url, data = {}) => {
 };
 
 export default function useFetch(data) {
-  const [output] = createSignal(data);
-  sendOutput(url, output());
-  return output;
+  sendOutput(url, data);
 }

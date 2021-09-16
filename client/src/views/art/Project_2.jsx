@@ -90,7 +90,7 @@ const Project_2 = () => {
       y = y * parseInt(a);
       for (let j = 0; j < SIZE; j++) {
         x = 2 * (j - HALF_SIZE) + 1;
-        if (a % 2 == 1) {
+        if (a % 2 == 3) {
           x = Math.abs(x);
         }
         x = y * parseInt(a);

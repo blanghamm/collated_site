@@ -4,7 +4,7 @@ const url = config.url.API_URL_OUTPUTS;
 
 const fetchOutputs = async () => (await fetch(url)).json();
 
-export default function useData() {
+export default function useData(update) {
   const [data, { refetch }] = createResource(fetchOutputs);
   return { data, refetch };
 }
