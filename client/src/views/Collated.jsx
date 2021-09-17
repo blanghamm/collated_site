@@ -2,7 +2,7 @@ import { For } from "solid-js";
 import { Link } from "solid-app-router";
 import fetchRoutes from "../api/routes";
 
-const Home = () => {
+const Collated = () => {
   return (
     <div>
       <For each={fetchRoutes}>
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Collated;

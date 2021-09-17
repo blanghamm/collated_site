@@ -1,0 +1,22 @@
+.home-container {
+  display: grid;
+  grid-template-columns: repeat(3, 33.333%);
+  color: white;
+  background-color: black;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 40px;
+}
+
+.left-content {
+  margin: 50px;
+}
+.middle-content {
+  margin: 50px;
+}
+.right-content {
+  margin: 50px;
+}

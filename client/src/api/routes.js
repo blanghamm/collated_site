@@ -6,6 +6,10 @@ const fetchRoutes = [
     component: lazy(() => import("../views/Home")),
   },
   {
+    path: "/collated",
+    component: lazy(() => import("../views/Collated")),
+  },
+  {
     path: "/171cbc11889d6afb",
     component: lazy(() => import("../views/art/Project_1")),
   },

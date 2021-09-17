@@ -1,3 +1,5 @@
+@import url("./views/Home/home.css");
+
 body {
   overflow: hidden;
   margin: 0;
@@ -19,16 +21,116 @@ code {
   backdrop-filter: blur(4px);
   transition-duration: 2s;
   transition-property: opacity;
+  display: grid;
+  grid-template-columns: 33.333% 33.333% 33.333%;
+  grid-template-rows: 45% 25% 30%;
+  font-size: 14px;
 }
 
-.overlay-access {
-  z-index: 30;
-  position: absolute;
-  color: rgb(255, 255, 255);
-  margin: 30px;
-  cursor: pointer;
+.overlay-content-right {
+  grid-column-start: 3;
+  color: white;
+  margin: 50px;
+  grid-row-start: 3;
+}
+
+.overlay-content-left {
+  grid-column-start: 1;
+  grid-row: 2/4;
+  word-break: break-all;
+  color: white;
+  margin: 50px;
+  display: grid;
+  grid-template-rows: 50% 50%;
+}
+
+.bottom-content {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+}
+
+.title-content {
+  grid-row: 1/2;
+  grid-column: 1;
+  margin: 50px;
+  color: white;
+}
+
+.title-content h2 {
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 40px;
+}
+
+.bottom-content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.bottom-content::-webkit-scrollbar {
+  width: 3px !important;
+  background-color: transparent;
 }
 
 .overlay-wrapper {
   position: relative;
+  display: grid;
+  grid-template-columns: 33.333% 33.333% 33.333%;
+}
+
+.svg-container-outside {
+  position: absolute;
+  margin: 50px;
+  grid-column-start: 3;
+  display: flex;
+  justify-content: flex-end;
+  justify-self: flex-end;
+}
+
+.svg-container-outside-left {
+  position: absolute;
+  margin: 50px;
+  grid-column-start: 1;
+  display: flex;
+  justify-content: flex-start;
+  justify-self: flex-start;
+}
+
+.more-info {
+  text-decoration: none;
+  color: white;
+}
+
+.svg-container-inside {
+  margin: 50px;
+  grid-column-start: 3;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.arrow-svg-icon {
+  margin: 50px;
+  cursor: pointer;
+  z-index: 50;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  grid-column-start: 3;
+}
+
+.x-svg-icon {
+  margin: 50px;
+  cursor: pointer;
+  z-index: 50;
+  width: 32px;
+  height: 32px;
+}
+.list-svg-icon {
+  margin: 50px;
+  cursor: pointer;
+  z-index: 50;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  grid-column-start: 3;
 }
