@@ -152,16 +152,6 @@ const Project_1 = () => {
     p.stroke(info().color);
     p.strokeWeight(1.5);
     p.noFill();
-    // for (let i = 0; i < 1; i++) {
-    //   p.line(
-    //     sc.x1(info().value1 * STEPS),
-    //     STEPS + sc.y1(x1 * i),
-    //     sc.x2(info().value1 * STEPS),
-    //     getOutput()
-    //   );
-    //   p.rotate(angle);
-    // }
-    p.fill("pink");
     for (let i = 0; i < info().value1 / info().value5; i++) {
       p.line(
         sc.x1(info().value1 * STEPS),
@@ -210,7 +200,7 @@ const Project_1 = () => {
             <div class="svg-container-outside-left">
               <Link href="/" class="more-info">
                 <ArrowIcon class="arrow-svg-icon" />
-                <p>more info</p>
+                {/* <p>more info</p> */}
               </Link>
             </div>
             <div class="svg-container-outside">

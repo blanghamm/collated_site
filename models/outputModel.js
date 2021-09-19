@@ -6,6 +6,7 @@ const outputSchema = new mongoose.Schema(
     userId: {
       type: String,
       unique: true,
+      required: true,
     },
     date: { type: Date, default: Date.now },
     value1: Number,

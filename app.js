@@ -17,6 +17,7 @@ const mongoURI = process.env.NODE_ENV_MONGODB;
 const outputRoute = require("./routes/outputRoutes");
 const urlRoute = require("./routes/urlRoutes");
 const urls = require("./urls/urls.json");
+const SECRET = process.env.NODE_ENV_SECRET;
 
 //Development
 app.use(
@@ -38,10 +39,12 @@ store.on("error", (error) => {
   console.log(error);
 });
 
+const secureCookie = process.env.NODE_ENV === "development" ? false : true;
+
 const sessionMiddleware = session({
   store: store,
-  secret: "testing stuff",
-  cookie: { secure: false },
+  secret: SECRET,
+  cookie: { secure: secureCookie },
   saveUninitialized: true,
   resave: false,
   genid: () => {
@@ -49,7 +52,7 @@ const sessionMiddleware = session({
   },
 });
 
-app.use(sessionMiddleware, cookieParse("testing stuff"));
+app.use(sessionMiddleware, cookieParse(SECRET));
 
 io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
