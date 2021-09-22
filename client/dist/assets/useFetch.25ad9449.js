@@ -1,1 +1,0 @@
-import{d as o}from"./vendor.38a4d866.js";import{c as t}from"./index.67db85de.js";const n=t.url.API_URL_OUTPUTS;function s(t){const[s]=o(t);return(async(o,t={})=>{(await fetch(o,{method:"POST",headers:{"Content-type":"application/json"},body:JSON.stringify(t)})).json})(n,s()),s}export{s as u};
