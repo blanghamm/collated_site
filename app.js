@@ -17,7 +17,7 @@ const mongoURI = process.env.NODE_ENV_MONGODB;
 const outputRoute = require("./routes/outputRoutes");
 const urlRoute = require("./routes/urlRoutes");
 const urls = require("./urls/urls.json");
-const SECRET = process.env.NODE_ENV_SECRET;
+const SECRET = "potatowaffles";
 
 //Development
 app.use(
