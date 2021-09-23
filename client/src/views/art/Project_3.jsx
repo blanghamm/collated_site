@@ -253,11 +253,9 @@ const Project_3 = () => {
               <div class="title-content">
                 <h2>Collated #003</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Number three is based on a more symmetrical output, pulsing in
+                  and out over extended viewing. It also uses a line-based
+                  geometry like those before.
                 </p>
               </div>
               <div class="overlay-content-left">

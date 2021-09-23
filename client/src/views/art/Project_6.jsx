@@ -255,11 +255,9 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #006</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project six moves away from purely line-based geometry. It
+                  uses circle-based geometry following a smooth animation track,
+                  linking itself to project five.
                 </p>
               </div>
               <div class="overlay-content-left">

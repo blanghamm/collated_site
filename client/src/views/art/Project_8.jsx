@@ -254,11 +254,9 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #008</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project eight creates several overlapping circle-based shapes,
+                  these following a smooth animated path. It lends itself to a
+                  very free-flowing pattern output.
                 </p>
               </div>
               <div class="overlay-content-left">

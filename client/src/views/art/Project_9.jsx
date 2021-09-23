@@ -253,11 +253,9 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #009</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project nine return to line-based geometry, this time opting
+                  for a symmetrical expanding vortex. The algorithm behind this
+                  project does yield some slightly mismatched outputs.
                 </p>
               </div>
               <div class="overlay-content-left">

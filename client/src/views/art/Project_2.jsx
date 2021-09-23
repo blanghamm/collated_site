@@ -246,11 +246,10 @@ const Project_2 = () => {
               <div class="title-content">
                 <h2>Collated #002</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project two envokes Sine and Cosine functions to create a
+                  large vortex of line-based geometry. It also continues to
+                  feature the rapid refiring of one function for a fast-paced
+                  chaotic output.
                 </p>
               </div>
               <div class="overlay-content-left">

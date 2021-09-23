@@ -254,11 +254,10 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #010</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project ten pulls away from the previous iterations, opting
+                  for slow falling line-based output. It also conforms to a
+                  triangle-esque boundary, making the entire piece feel
+                  off-axis.
                 </p>
               </div>
               <div class="overlay-content-left">

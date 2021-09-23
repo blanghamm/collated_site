@@ -255,11 +255,10 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #004</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project four continues with line-based geometry but opts for
+                  an overlapping effect. It is bound to a rectangle container
+                  but within its shape is more abstract. Four also continues to
+                  loop.
                 </p>
               </div>
               <div class="overlay-content-left">

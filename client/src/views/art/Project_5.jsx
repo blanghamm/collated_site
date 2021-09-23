@@ -255,11 +255,10 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #005</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project five focuses on a smooth animation loop, showcasing a
+                  primitive shape bouncing within its digital environment. It
+                  also possesses the ability to generate far more complex
+                  outputs.
                 </p>
               </div>
               <div class="overlay-content-left">

@@ -255,11 +255,9 @@ const Project_4 = () => {
               <div class="title-content">
                 <h2>Collated #007</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  Project seven is more focused on flowing symmetry, creating a
+                  snake-like output. This is partly due to the involvement of
+                  PI.
                 </p>
               </div>
               <div class="overlay-content-left">

@@ -241,11 +241,9 @@ const Project_1 = () => {
               <div class="title-content">
                 <h2>Collated #001</h2>
                 <p class="info-section">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                  accusantium officiis tempore necessitatibus illum nisi,
-                  consequatur accusamus doloremque dolores, iusto hic fuga
-                  incidunt voluptatibus. Explicabo vero accusantium deserunt
-                  maiores ea!
+                  This iteration focuses on the rapid refiring of one function,
+                  this generating a piece of disorientating work. It uses
+                  line-based geometry to fit the minimalistic theme.
                 </p>
               </div>
               <div class="overlay-content-left">

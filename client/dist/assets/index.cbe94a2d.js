@@ -1,1 +1,0 @@
-import{t as e}from"./vendor.9184b711.js";import"./index.1cdfefda.js";const a=e('<div class="home-container"><h2 class="home-t">Collated Series</h2><p class="home-p">Created by <br>Ben Langham</p></div>');var o=()=>a.cloneNode(!0);export{o as default};
