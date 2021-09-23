@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For, Show } from "solid-js";
+import { createEffect, createSignal, For, Show, onMount } from "solid-js";
 import useFetch from "../../api/hooks/useFetch";
 import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
@@ -114,11 +114,13 @@ const Project_4 = () => {
 
   generateValuesAndSave(user.id());
 
-  createEffect(() => {
+  onMount(() => {
     useFetch(info());
-    refetch();
   });
 
+  createEffect(() => {
+    refetch();
+  });
   let STEPS = 12;
   let angle = 360 / STEPS;
   let BOUNDS = 100;
