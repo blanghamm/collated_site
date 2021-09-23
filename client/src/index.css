@@ -1,7 +1,9 @@
 @import url("./views/Home/home.css");
 
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
+  scrollbar-width: none;
+  background-color: black;
   margin: 0;
   font-family: "JetBrains Mono", monospace;
   -webkit-font-smoothing: antialiased;
@@ -22,9 +24,10 @@ code {
   transition-duration: 2s;
   transition-property: opacity;
   display: grid;
-  grid-template-columns: 33.333% 33.333% 33.333%;
-  grid-template-rows: 45% 25% 30%;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  /* grid-template-rows: 45% 25% 30%; */
   font-size: 14px;
+  grid-auto-flow: column;
 }
 
 .overlay-content-right {
@@ -41,13 +44,18 @@ code {
   color: white;
   margin: 50px;
   display: grid;
-  grid-template-rows: 50% 50%;
+  /* grid-template-rows: 50% 50%; */
 }
 
 .bottom-content {
   scrollbar-width: none;
   -ms-overflow-style: none;
   overflow-y: scroll;
+  height: 300px;
+}
+
+.bottom-content a {
+  margin-bottom: 10px;
 }
 
 .title-content {
@@ -55,12 +63,30 @@ code {
   grid-column: 1;
   margin: 50px;
   color: white;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .title-content h2 {
   text-transform: uppercase;
   font-weight: 900;
   font-size: 40px;
+}
+
+.title-content p {
+  grid-column: 1;
+}
+
+@media only screen and (max-width: 400px) {
+  .title-content {
+    grid-template-columns: none;
+  }
+  .overlay-content-left {
+    grid-template-rows: none;
+  }
+  .bottom-content {
+    margin-top: 50px;
+  }
 }
 
 .bottom-content::-webkit-scrollbar-track {
@@ -102,14 +128,13 @@ code {
 }
 
 .svg-container-inside {
-  margin: 50px;
   grid-column-start: 3;
   display: flex;
   justify-content: flex-end;
 }
 
 .arrow-svg-icon {
-  margin: 50px;
+  /* margin: 50px; */
   cursor: pointer;
   z-index: 50;
   position: absolute;
@@ -119,14 +144,15 @@ code {
 }
 
 .x-svg-icon {
-  margin: 50px;
+  z-index: 101;
   cursor: pointer;
-  z-index: 50;
+  position: absolute;
   width: 32px;
   height: 32px;
+  grid-column-start: 3;
 }
 .list-svg-icon {
-  margin: 50px;
+  /* margin: 50px; */
   cursor: pointer;
   z-index: 50;
   position: absolute;

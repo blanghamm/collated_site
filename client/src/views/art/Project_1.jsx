@@ -115,7 +115,7 @@ const Project_1 = () => {
   generateValuesAndSave(user.id());
 
   createEffect(() => {
-    // useFetch(info());
+    useFetch(info());
     refetch();
   });
 
@@ -200,7 +200,6 @@ const Project_1 = () => {
             <div class="svg-container-outside-left">
               <Link href="/" class="more-info">
                 <ArrowIcon class="arrow-svg-icon" />
-                {/* <p>more info</p> */}
               </Link>
             </div>
             <div class="svg-container-outside">
@@ -210,10 +209,12 @@ const Project_1 = () => {
               />
             </div>
           </Show>
+          <Show when={show()}>
+            <div class="svg-container-outside">
+              <XIcon class="x-svg-icon" onclick={() => setShow(!show())} />
+            </div>
+          </Show>
         </Transition>
-        {/* <a class="overlay-access" onclick={() => setShow(!show())}>
-          Show shit
-        </a> */}
         <Transition
           enter={animateEnter(
             { opacity: [0, 1] },
@@ -231,12 +232,12 @@ const Project_1 = () => {
         >
           <Show when={show()}>
             <div class="overlay-ui">
-              <div class="svg-container-inside">
+              {/* <div class="svg-container-inside">
                 <XIcon class="x-svg-icon" onclick={() => setShow(!show())} />
-              </div>
+              </div> */}
               <div class="title-content">
                 <h2>Collated #001</h2>
-                <p>
+                <p class="info-section">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
                   accusantium officiis tempore necessitatibus illum nisi,
                   consequatur accusamus doloremque dolores, iusto hic fuga
@@ -246,10 +247,6 @@ const Project_1 = () => {
               </div>
               <div class="overlay-content-left">
                 <div class="top-content">
-                  <p>
-                    <strong>Latest version: </strong>
-                    {info().userId}
-                  </p>
                   <p>
                     <strong>Selected version: </strong>
                     {info().userId}
@@ -274,17 +271,6 @@ const Project_1 = () => {
                     )}
                   </For>
                 </div>
-              </div>
-              <div class="overlay-content-right">
-                <p>
-                  <strong>Project:</strong> Lines
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing
-                  elit. Fugiat porro culpa doloremque omnis<br></br> iusto nisi
-                  voluptatibus est voluptatem illo a! Rem, odio repellat?
-                  <br></br> Eius sed, itaque quae magnam deleniti ad.
-                </p>
               </div>
             </div>
           </Show>

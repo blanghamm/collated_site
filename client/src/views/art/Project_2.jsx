@@ -115,7 +115,7 @@ const Project_2 = () => {
   generateValuesAndSave(user.id());
 
   createEffect(() => {
-    // useFetch(info());
+    useFetch(info());
     refetch();
   });
 
@@ -214,6 +214,11 @@ const Project_2 = () => {
               />
             </div>
           </Show>
+          <Show when={show()}>
+            <div class="svg-container-outside">
+              <XIcon class="x-svg-icon" onclick={() => setShow(!show())} />
+            </div>
+          </Show>
         </Transition>
         {/* <a class="overlay-access" onclick={() => setShow(!show())}>
           Show shit
@@ -235,12 +240,9 @@ const Project_2 = () => {
         >
           <Show when={show()}>
             <div class="overlay-ui">
-              <div class="svg-container-inside">
-                <XIcon class="x-svg-icon" onclick={() => setShow(!show())} />
-              </div>
               <div class="title-content">
-                <h2>Collated #001</h2>
-                <p>
+                <h2>Collated #002</h2>
+                <p class="info-section">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
                   accusantium officiis tempore necessitatibus illum nisi,
                   consequatur accusamus doloremque dolores, iusto hic fuga
@@ -250,10 +252,6 @@ const Project_2 = () => {
               </div>
               <div class="overlay-content-left">
                 <div class="top-content">
-                  <p>
-                    <strong>Latest version: </strong>
-                    {info().userId}
-                  </p>
                   <p>
                     <strong>Selected version: </strong>
                     {info().userId}
@@ -278,17 +276,6 @@ const Project_2 = () => {
                     )}
                   </For>
                 </div>
-              </div>
-              <div class="overlay-content-right">
-                <p>
-                  <strong>Project:</strong> Lines
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur<br></br>adipisicing
-                  elit. Fugiat porro culpa doloremque omnis<br></br> iusto nisi
-                  voluptatibus est voluptatem illo a! Rem, odio repellat?
-                  <br></br> Eius sed, itaque quae magnam deleniti ad.
-                </p>
               </div>
             </div>
           </Show>

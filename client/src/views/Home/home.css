@@ -1,22 +1,21 @@
 .home-container {
   display: grid;
-  grid-template-columns: repeat(3, 33.333%);
+  grid-template-columns: 1;
+  height: 100vh;
+  grid-template-rows: 20% 50%;
   color: white;
   background-color: black;
 }
 
-h2 {
+.home-t {
+  justify-content: center;
+  align-content: center;
+  margin: 50px;
   text-transform: uppercase;
   font-weight: 900;
   font-size: 40px;
 }
 
-.left-content {
-  margin: 50px;
-}
-.middle-content {
-  margin: 50px;
-}
-.right-content {
+.home-p {
   margin: 50px;
 }
