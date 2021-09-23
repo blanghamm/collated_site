@@ -17,7 +17,6 @@ const mongoURI = process.env.NODE_ENV_MONGODB;
 const outputRoute = require("./routes/outputRoutes");
 const urlRoute = require("./routes/urlRoutes");
 const urls = require("./urls/urls.json");
-const SECRET = "potatowaffles";
 
 //Development
 app.use(
@@ -39,12 +38,10 @@ store.on("error", (error) => {
   console.log(error);
 });
 
-const secureCookie = process.env.NODE_ENV === "development" ? false : true;
-
 const sessionMiddleware = session({
   store: store,
-  secret: SECRET,
-  cookie: { secure: secureCookie },
+  secret: "potatowaffles",
+  cookie: { secure: false },
   saveUninitialized: true,
   resave: false,
   genid: () => {
