@@ -49,7 +49,7 @@ const sessionMiddleware = session({
   },
 });
 
-app.use(sessionMiddleware, cookieParse(SECRET));
+app.use(sessionMiddleware, cookieParse("potatowaffles"));
 
 io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res || {}, next);
