@@ -1,4 +1,11 @@
-import { createEffect, createSignal, For, Show, createMemo } from "solid-js";
+import {
+  createEffect,
+  createSignal,
+  For,
+  Show,
+  createMemo,
+  createComputed,
+} from "solid-js";
 import useFetch from "../../api/hooks/useFetch";
 import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
@@ -21,6 +28,20 @@ const Project_3 = () => {
   const [show, setShow] = createSignal(false);
   const [user] = useId();
   const { data, refetch } = useData();
+
+  function createLocalStorage(initState) {
+    const [state, setState] = createStore(initState);
+    if (localStorage.id) setState(JSON.parse(localStorage.id));
+    createEffect(() => (localStorage.id = JSON.stringify(state)));
+    return [state, setState];
+  }
+
+  const [state, setState] = createLocalStorage();
+
+  createComputed(() => {
+    setState({ id: user.id() });
+    console.log(state.id);
+  });
 
   function stringToColor(str) {
     let hash = 0;
@@ -120,7 +141,7 @@ const Project_3 = () => {
     refetch();
   });
 
-  generateValuesAndSave(user.id());
+  generateValuesAndSave(state.id);
 
   let STEPS = 6;
   let angle = 360 / STEPS;

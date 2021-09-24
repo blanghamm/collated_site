@@ -13,7 +13,6 @@ function App() {
     const [userId, setUserId] = createSignal();
     socket.on("socket", (data) => {
       setUserId(data);
-      console.log(userId());
     });
     return userId;
   };
