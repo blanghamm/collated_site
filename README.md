@@ -6,7 +6,7 @@ Collated is a project based around generative art, it features ten pieces within
 
 The project takes a randomly generated id created when the user loads up the site, this idea is shared across each generative piece. I will include below the sorting algorithm that extracts values from each unique id.
 
-The id is served via the [socket.io](http://socket.io) and an express server, which also serves the Solid.js application that contains the p5.js code. Using this method it possible to store the users random id in a session cookie. This helps keep the artwork unique to their visit.
+The id is served via the [socket.io](http://socket.io) and an express server, which also serves the [Solid.js](https://www.solidjs.com/) application that contains the [p5.js](https://p5js.org/) code. Using this method it possible to store the users random id in a session cookie. This helps keep the artwork unique to their visit.
 
 ### Extracting values from the user id:
 
