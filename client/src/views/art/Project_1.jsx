@@ -21,14 +21,14 @@ import XIcon from "../../assets/icons/x.svg";
 import ListIcon from "../../assets/icons/list.svg";
 import ArrowIcon from "../../assets/icons/arrow-left.svg";
 
+const id = localStorage.getItem("id");
+console.log("user", id);
+
 const Project_1 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal();
   const [show, setShow] = createSignal(false);
   const { data, refetch } = useData();
-
-  const id = localStorage.getItem("id");
-  console.log("user", id);
 
   function stringToColor(str) {
     let hash = 0;
