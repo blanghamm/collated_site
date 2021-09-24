@@ -1,4 +1,4 @@
-## Collated: Notes
+# Collated: Notes
 
 Collated is a project based around generative art, it features ten pieces within the application. Each piece is based loosely on the code used in the previous version. This helps with highlighting a strong theme across the generative art outputs.
 
@@ -8,7 +8,7 @@ The project takes a randomly generated id created when the user loads up the sit
 
 The id is served via the [socket.io](http://socket.io) and an express server, which also serves the Solid.js application that contains the p5.js code. Using this method it possible to store the users random id in a session cookie. This helps keep the artwork unique to their visit.
 
-# Extracting values from the user id:
+### Extracting values from the user id:
 
 ```jsx
 const generateValuesAndSave = (id) => {
@@ -54,7 +54,7 @@ const generateValuesAndSave = (id) => {
 };
 ```
 
-# Extracting a colour using the user id:
+### Extracting a colour using the user id:
 
 ```jsx
 function stringToColor(str) {
