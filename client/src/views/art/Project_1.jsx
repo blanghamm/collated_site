@@ -42,7 +42,7 @@ const Project_1 = () => {
 
   createComputed(() => {
     setState({ id: user.id() });
-    console.log(state.id);
+    console.log("id local", state.id);
   });
 
   function stringToColor(str) {
@@ -143,8 +143,11 @@ const Project_1 = () => {
     refetch();
     // console.log(user.id);
   });
-
-  generateValuesAndSave(state.id);
+  if (state.id) {
+    generateValuesAndSave(state.id);
+  } else {
+    console.log("error with id recall");
+  }
 
   let STEPS = 6;
   let angle = 360 / STEPS;

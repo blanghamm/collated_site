@@ -141,7 +141,11 @@ const Project_3 = () => {
     refetch();
   });
 
-  generateValuesAndSave(state.id);
+  if (state.id) {
+    generateValuesAndSave(state.id);
+  } else {
+    console.log("error with id recall");
+  }
 
   let STEPS = 6;
   let angle = 360 / STEPS;
