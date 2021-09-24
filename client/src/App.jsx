@@ -18,7 +18,9 @@ function App() {
   });
 
   createComputed(() => {
-    localStorage.setItem("id", userId());
+    if (userId()) {
+      localStorage.setItem("id", userId());
+    }
   });
 
   //Test of sockets, works fine

@@ -2,7 +2,6 @@ import { createEffect, createSignal, For, Show, createMemo } from "solid-js";
 import useFetch from "../../api/hooks/useFetch";
 import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
-import { useId } from "../../store/app-store";
 import { Link } from "solid-app-router";
 import {
   Transition,

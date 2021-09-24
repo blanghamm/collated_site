@@ -1,16 +1,7 @@
-import {
-  createEffect,
-  createSignal,
-  For,
-  Show,
-  createMemo,
-  createComputed,
-} from "solid-js";
+import { createEffect, createSignal, For, Show, createMemo } from "solid-js";
 import useFetch from "../../api/hooks/useFetch";
 import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
-import { useId } from "../../store/app-store";
-import Overlay from "../../components/overlay";
 import { Link } from "solid-app-router";
 import {
   Transition,
@@ -22,26 +13,14 @@ import XIcon from "../../assets/icons/x.svg";
 import ListIcon from "../../assets/icons/list.svg";
 import ArrowIcon from "../../assets/icons/arrow-left.svg";
 
+const id = localStorage.getItem("id");
+console.log("user", id);
+
 const Project_4 = () => {
   const [backgroundColor, setBackgroundColor] = createSignal("black");
   const [info, setInfo] = createSignal();
   const [show, setShow] = createSignal(false);
-  const [user] = useId();
   const { data, refetch } = useData();
-
-  function createLocalStorage(initState) {
-    const [state, setState] = createStore(initState);
-    if (localStorage.id) setState(JSON.parse(localStorage.id));
-    createEffect(() => (localStorage.id = JSON.stringify(state)));
-    return [state, setState];
-  }
-
-  const [state, setState] = createLocalStorage();
-
-  createComputed(() => {
-    setState({ id: user.id() });
-    console.log(state.id);
-  });
 
   function stringToColor(str) {
     let hash = 0;
@@ -140,8 +119,8 @@ const Project_4 = () => {
   createEffect(() => {
     refetch();
   });
-  if (state.id) {
-    generateValuesAndSave(state.id);
+  if (id) {
+    generateValuesAndSave(id);
   } else {
     console.log("error with id recall");
   }
