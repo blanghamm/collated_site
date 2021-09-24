@@ -1,4 +1,4 @@
-import { createEffect, createSignal, For, Show, onMount } from "solid-js";
+import { createEffect, createSignal, For, Show, createMemo } from "solid-js";
 import useFetch from "../../api/hooks/useFetch";
 import useData from "../../api/hooks/useData";
 import Sketch from "../../p5_wrapper/index";
@@ -114,7 +114,7 @@ const Project_2 = () => {
 
   generateValuesAndSave(user.id());
 
-  onMount(() => {
+  createMemo(() => {
     useFetch(info());
   });
 
