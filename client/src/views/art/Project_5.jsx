@@ -102,7 +102,7 @@ const Project_4 = () => {
     console.log(x, y, v, value, mod, colorOutput);
 
     setInfo({
-      userId: user.id(),
+      userId: id,
       value1: Math.abs(x),
       value2: Math.abs(y),
       value3: v,
@@ -112,8 +112,6 @@ const Project_4 = () => {
     });
   };
 
-  generateValuesAndSave(user.id());
-
   createMemo(() => {
     useFetch(info());
   });
@@ -121,6 +119,8 @@ const Project_4 = () => {
   createEffect(() => {
     refetch();
   });
+
+  generateValuesAndSave(user.id());
 
   let STEPS = 6;
   let angle = 360 / STEPS;
