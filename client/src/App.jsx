@@ -1,28 +1,32 @@
 import { useRoutes } from "solid-app-router";
 import fetchRoutes from "./api/routes";
-import { createSignal } from "solid-js";
+import { createSignal, createEffect, createComputed } from "solid-js";
 import { AppProvider } from "./store/app-store";
+import { createStore } from "solid-js/store";
 import { config } from "./api/config/constants";
 import io from "socket.io-client";
+import { useId } from "./store/app-store";
+
 const url = config.url.API_URL_BASE;
 export const socket = io(url);
 
 function App() {
+  const [userId, setUserId] = createSignal();
   //Pass userId through context
-  const dataFunc = () => {
-    const [userId, setUserId] = createSignal();
-    socket.on("socket", (data) => {
-      setUserId(data);
-    });
-    return userId;
-  };
+  socket.on("socket", (data) => {
+    setUserId(data);
+  });
+
+  createComputed(() => {
+    localStorage.setItem("id", userId());
+  });
 
   //Test of sockets, works fine
   const Routes = useRoutes(fetchRoutes);
   return (
-    <AppProvider socketId={dataFunc()}>
-      <Routes />
-    </AppProvider>
+    // <AppProvider socketId={dataFunc()}>
+    <Routes />
+    // </AppProvider>
   );
 }
 

@@ -1,0 +1,1 @@
+import{t as e,d as r,b as t,L as s,F as a}from"./vendor.7c414862.js";import{f as n}from"./index.76e0b502.js";const o=e("<div></div>"),d=()=>(()=>{const e=o.cloneNode(!0);return r(e,t(a,{each:n,children:e=>t(s,{style:{display:"flex",flexDirection:"column"},get href(){return e.path},get children(){return e.path}})})),e})();export{d as default};
